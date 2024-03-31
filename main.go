@@ -4,7 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"path/filepath"
 
 	"github.com/pdfcpu/pdfcpu/pkg/api"
 	"github.com/pdfcpu/pdfcpu/pkg/pdfcpu/model"
@@ -21,10 +20,9 @@ func main() {
 		log.Fatal("Please provide the path to the input PDF file using the --input flag")
 	}
 
-	outputFilePattern := filepath.Join(*outputDir, fmt.Sprintf("%%d_%d.pdf", *splitPages))
-
 	conf := model.NewDefaultConfiguration()
-	err := api.SplitFile(*inputFile, outputFilePattern, *splitPages, conf)
+
+	err := api.SplitFile(*inputFile, *outputDir, *splitPages, conf)
 	if err != nil {
 		log.Fatal(err)
 	}
